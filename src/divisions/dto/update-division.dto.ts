@@ -1,20 +1,24 @@
 import { PartialType } from '@nestjs/swagger';
 import { CreateDivisionDto } from './create-division.dto.js';
 import { IsOptional, IsString, MaxLength, IsInt, Min } from 'class-validator';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UpdateDivisionDto extends PartialType(CreateDivisionDto) {
-  @IsOptional()
-  @IsString()
-  @MaxLength(45)
-  name?: string;
+    @ApiPropertyOptional({ maxLength: 45 })
+    @IsOptional()
+    @IsString()
+    @MaxLength(45)
+    name?: string;
 
-  @IsOptional()
-  @IsInt()
-  @Min(1)
-  parentId?: number;
+    @ApiPropertyOptional({ minimum: 1 })
+    @IsOptional()
+    @IsInt()
+    @Min(1)
+    parentId?: number;
 
-  @IsOptional()
-  @IsString()
-  @MaxLength(120)
-  ambassadorFullName?: string;
+    @ApiPropertyOptional({ maxLength: 120 })
+    @IsOptional()
+    @IsString()
+    @MaxLength(120)
+    ambassadorFullName?: string;
 }

@@ -1,0 +1,209 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/divisions": {
+      "post": {
+        "operationId": "DivisionsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDivisionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "División creada"
+          },
+          "409": {
+            "description": "Nombre duplicado"
+          }
+        },
+        "summary": "Crear división",
+        "tags": [
+          "divisions"
+        ]
+      },
+      "get": {
+        "operationId": "DivisionsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Listar todas las divisiones",
+        "tags": [
+          "divisions"
+        ]
+      }
+    },
+    "/divisions/{id}": {
+      "get": {
+        "operationId": "DivisionsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "No encontrada"
+          }
+        },
+        "summary": "Obtener una división por ID",
+        "tags": [
+          "divisions"
+        ]
+      },
+      "patch": {
+        "operationId": "DivisionsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDivisionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "409": {
+            "description": "Nombre duplicado"
+          }
+        },
+        "summary": "Actualizar división",
+        "tags": [
+          "divisions"
+        ]
+      },
+      "delete": {
+        "operationId": "DivisionsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "409": {
+            "description": "Tiene subdivisiones"
+          }
+        },
+        "summary": "Eliminar división",
+        "tags": [
+          "divisions"
+        ]
+      }
+    },
+    "/divisions/{id}/subdivisions": {
+      "get": {
+        "operationId": "DivisionsController_findSubdivisions",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Listar subdivisiones directas",
+        "tags": [
+          "divisions"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Divisions API",
+    "description": "",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CreateDivisionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 45,
+            "example": "Recursos Humanos",
+            "description": "Nombre único de la división"
+          },
+          "parentId": {
+            "type": "number",
+            "minimum": 1,
+            "example": 1,
+            "description": "ID de la división padre (opcional)"
+          },
+          "ambassadorFullName": {
+            "type": "string",
+            "maxLength": 120,
+            "example": "Ana María López",
+            "description": "Nombre completo del embajador"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "UpdateDivisionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 45,
+            "example": "Recursos Humanos",
+            "description": "Nombre único de la división"
+          },
+          "parentId": {
+            "type": "number",
+            "minimum": 1,
+            "example": 1,
+            "description": "ID de la división padre (opcional)"
+          },
+          "ambassadorFullName": {
+            "type": "string",
+            "maxLength": 120,
+            "example": "Ana María López",
+            "description": "Nombre completo del embajador"
+          }
+        }
+      }
+    }
+  }
+}
