@@ -121,3 +121,40 @@ src/
 ```
 
 ---
+
+## 🚀 Deployment en Render
+
+### Variables de entorno requeridas:
+
+Configura estas variables en la interfaz de Render (no uses archivos .env en producción):
+
+```env
+NODE_ENV=production
+PORT=3000
+DB_HOST=your-database-host
+DB_PORT=your-database-port
+DB_USER=your-database-user
+DB_PASS=your-database-password
+DB_NAME=your-database-name
+CORS_ORIGIN=https://your-frontend-domain.com
+DB_SSL=false
+```
+
+> 💡 **Tip**: Consulta `.env.prod.example` para ver ejemplos de configuración
+
+### Configuración en Render:
+
+**Opción A (Automático con postbuild):**
+- **Build Command**: `npm install && npm run build`
+- **Start Command**: `npm run start:prod`
+
+**Opción B (Manual):**
+- **Build Command**: `npm install && npm run build:prod`
+- **Start Command**: `npm run start:prod`
+
+**Configuraciones adicionales:**
+- **Environment**: Node
+- **Region**: Cualquiera (recomendado: Oregon)
+- **Auto-Deploy**: Activado (rama `main` o `dev`)
+
+---

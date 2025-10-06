@@ -15,8 +15,10 @@
     "typeorm": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli",
     "migration:generate": "npm run build && node ./node_modules/typeorm/cli.js migration:generate ./src/database/migrations/CreateDivisions -d dist/database/datasource.js",
     "migration:create": "ts-node ./node_modules/typeorm/cli.js migration:create ./src/database/migrations/manual",
-    "migration:run": "npm run build && node ./node_modules/typeorm/cli.js migration:run -d dist/database/datasource.js",
-    "migration:revert": "npm run build && node ./node_modules/typeorm/cli.js migration:revert -d dist/database/datasource.js",
+    "migration:run": "npm run build && npx typeorm migration:run -d dist/database/datasource.js",
+    "migration:revert": "npm run build && npx typeorm migration:revert -d dist/database/datasource.js",
+    "build:prod": "npm run build && npm run migration:run",
+    "postbuild": "npx typeorm migration:run -d dist/database/datasource.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -24,7 +26,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "swagger:json": "node -e \"(async()=>{const {NestFactory}=require('@nestjs/core');const {AppModule}=require('./dist/app.module');const {SwaggerModule,DocumentBuilder}=require('@nestjs/swagger');const app=await NestFactory.create(AppModule);const config=new DocumentBuilder().setTitle('Divisions API').setVersion('1.0.0').build();const doc=SwaggerModule.createDocument(app,config);require('fs').writeFileSync('./swagger.json',JSON.stringify(doc,null,2));process.exit(0)})()\"",
-    "seed": "ts-node -r tsconfig-paths/register src/database/seed.ts"
+    "seed": "npm run build && node dist/database/seed.js"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
