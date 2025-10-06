@@ -136,7 +136,7 @@ DB_PORT=your-database-port
 DB_USER=your-database-user
 DB_PASS=your-database-password
 DB_NAME=your-database-name
-CORS_ORIGIN=https://your-frontend-domain.com
+CORS_ORIGIN=https://org-divisions-frontend.vercel.app,http://localhost:4200
 DB_SSL=false
 ```
 
